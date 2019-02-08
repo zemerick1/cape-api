@@ -28,8 +28,47 @@ class Cape():
         self.token = body['id_token']
         return body
 
+    # Logout is returning 500 errors. Can't find correct headers
     def Logout(self):
         headers = {
-            "Authorization": self.token
+            "Authorization": self.token,
+            "Content-type": "application/json"
         }
         return requests.delete('https://api.capenetworks.com/user/logout', headers=headers)
+    def getUserProfile(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        r = requests.get('https://api.capenetworks.com/user/profile', headers=headers)
+        data = r.json()
+        return data
+
+    def getStartupData(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        r = requests.get('https://api.capenetworks.com/dashboard/startup', headers=headers)
+        data = r.json()
+        return data
+
+    def getUsers(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        r = requests.get('https://api.capenetworks.com/user', headers=headers)
+        data = r.json()
+        return data
+
+    def getSSID(self, ssid):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        # Build nice uri
+        uri = 'https://api.capenetworks.com/ssid/' + ssid
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
