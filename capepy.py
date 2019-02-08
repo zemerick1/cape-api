@@ -136,3 +136,45 @@ class Cape():
         r = requests.post(uri, data=json.dumps(params), headers=headers)
         data = r.json()
         return data
+
+    def removeUser(self, userID):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/user' + userID
+        r = requests.delete(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def removeSSID(self, ssid):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/ssid/' + ssid
+        r = requests.delete(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def createSSID(self, ssid, security, passphrase, hidden=False, external=False, bandlock='auto'):
+        alias = ssid
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        params = {
+            "ssid": ssid,
+            "hidden": hidden,
+            "security": security,
+            "alias": alias,
+            "external_connectivity": external,
+            "band_locking": bandlock,
+            "phase2_auth": "",
+            "proxies": {},
+            "security_details": {"passphrase": passphrase}
+        }
+        uri = 'https://api.capenetworks.com/ssid'
+        r = requests.post(uri, data=json.dumps(params), headers=headers)
+        data = r.json()
+        return data
