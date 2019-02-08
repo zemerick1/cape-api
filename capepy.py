@@ -42,6 +42,7 @@ class Cape():
         }
         r = requests.get('https://api.capenetworks.com/user/profile', headers=headers)
         data = r.json()
+        self.comp_id = data['company_uid']
         return data
 
     def getStartupData(self):
@@ -70,5 +71,68 @@ class Cape():
         # Build nice uri
         uri = 'https://api.capenetworks.com/ssid/' + ssid
         r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def getTimezones(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/timezone-list'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def getSensorNeighbors(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/ssid/recent'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def editUser(self, userID, role):
+        if role == 'viewer':
+            restricted = True
+        else:
+            restricted = False
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        params = {
+            "userId": "user-17a633826a03",
+            "role": role,
+            "restricted": restricted,
+            "groups": []
+        }
+        uri = 'https://api.capenetworks.com/user/role'
+        r = requests.post(uri, data=json.dumps(params), headers=headers)
+        data = r.json()
+        return data
+
+    def createUser(self, firstname, surname, email, role):
+        if role == 'viewer':
+            restricted = True
+        else:
+            restricted = False
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        params = {
+            "clientId": self.comp_id,
+            "email": email,
+            "firstname": firstname,
+             "surname": surname,
+            "role": role,
+            "restricted": restricted,
+            "groups": []
+        }
+        uri = 'https://api.capenetworks.com/user'
+        r = requests.post(uri, data=json.dumps(params), headers=headers)
         data = r.json()
         return data
