@@ -178,3 +178,78 @@ class Cape():
         r = requests.post(uri, data=json.dumps(params), headers=headers)
         data = r.json()
         return data
+
+    def getSSIDs(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/ssid'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def getIssues(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/notifications/issues'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def getSensors(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/sensor'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def getMutes(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/notifications/mutes'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def createGroup(self, name):
+        alias = name[:3]
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        params = {
+            "name": name,
+            "alias": alias
+        }
+        uri = 'https://api.capenetworks.com/group'
+        r = requests.post(uri, data=json.dumps(params), headers=headers)
+        data = r.json()
+        return data
+
+    def removeGroup(self, groupID):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/group' + groupID
+        r = requests.delete(uri, headers=headers)
+        data = r.json()
+        return data
+
+    def getGroups(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/group'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
