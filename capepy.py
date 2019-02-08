@@ -253,3 +253,13 @@ class Cape():
         r = requests.get(uri, headers=headers)
         data = r.json()
         return data
+
+    def getLatest(self):
+        headers = {
+            "Authorization": self.token,
+            "Content-type": "application/json"
+        }
+        uri = 'https://api.capenetworks.com/dashboard/latest'
+        r = requests.get(uri, headers=headers)
+        data = r.json()
+        return data
