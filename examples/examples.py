@@ -3,7 +3,7 @@ from capepy import Cape
 user = 'username'
 upass = 'password'
 
-# Creating the Cape object will auto log you in and store the API token
+# Creating the Cape object will log you in automatically and store the API token.
 test = Cape(user, upass)
 
 #### ID_Token for API calls
