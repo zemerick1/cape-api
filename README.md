@@ -1,4 +1,5 @@
 # Python class for Aruba / Cape Sensors
+[https://www.emerickcc.com](https://www.emerickcc.com)
 
 # Usage
 from capepy import Cape
@@ -16,4 +17,9 @@ print(test.token)
 userProfile = test.getUserProfile()
 print(userProfile)
 
-# See examples/examples.py for more examples.
+## See examples/examples.py for more examples.
+
+## TODO:
+1. Add preferences endpoint(s)
+2. Fix Logout()
+3. Find services endpoint.
